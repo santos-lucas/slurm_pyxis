@@ -13,6 +13,8 @@ Before you enable the pyxis plugin on your environment, you need to make sure yo
 
 This role expects your slurm prolog and epilog to be already configured and to run all scripts under /etc/slurm/prolog.d/ and /etc/slurm/epilog.d/ respictively on prolog and epilog process.
 
+You could also use this [prolog_epilog](https://github.com/santos-lucas/bluebanquise-lss-custom/tree/main/roles/prolog_epilog) role also to configure very basic prolog and epilog scripts that will be compatible with this role.
+
 ### Add the pyxis_slurm role to your playbook
 
 Once you have the repositories setted up, you just need to make sure you add the pyxis_slurm role on you playbook after the slurm role
