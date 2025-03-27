@@ -1,0 +1,23 @@
+#!/bin/bash
+#### Blue Banquise file (pyxis_slurm) ####
+## {{ ansible_managed }}
+
+ENROOT_RUNTIME_PATH {{ enroot_runtime_path }}
+ENROOT_CACHE_PATH {{ enroot_cache_path }} 
+ENROOT_DATA_PATH {{ enroot_data_path }}
+
+set -ex
+
+command -v enroot >/dev/null || exit 0  # enroot not installed
+
+num_jobs=$(squeue -h -u "$SLURM_JOB_USER" -w "$HOSTNAME" -t running | wc -l)
+if [ "$num_jobs" -ne 0 ]; then
+    logger -s -t slurm-epilog "skipping enroot cleanup - User $SLURM_JOB_USER still has jobs on the server"
+    exit 0
+fi
+
+runtime_path="$(sudo -u "$SLURM_JOB_USER" sh -c 'echo "{{ enroot_runtime_path }}"')"
+rm -rf "$runtime_path"
+
+data_path="$(sudo -u "$SLURM_JOB_USER" sh -c 'echo "{{ enroot_data_path }}"')"
+rm -rf "$data_path"

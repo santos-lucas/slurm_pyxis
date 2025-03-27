@@ -1,0 +1,48 @@
+- name: "Install required packages"
+  ansible.builtin.package:
+    name: ["enroot","enroot+caps","nvslurm-plugin-pyxis"]
+    state: present
+
+- name: "Render enroot configuration file"
+  ansible.builtin.template:
+    src: enroot.conf.j2
+    dest: /etc/enroot/enroot.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: "Create /run/pyxis dir if does not exists"
+  ansible.builtin.file:
+    path: /run/pyxis
+    state: directory
+    mode: '0755'
+
+- name: "Create 'plugstack.conf.d' dir if does not exists"
+  ansible.builtin.file:
+    path: /etc/slurm/plugstack.conf.d/
+    state: directory
+    mode: '0755'
+  
+- name: "Enable pyxis slurm plugin"
+  ansible.builtin.file:
+    src: /usr/share/pyxis/pyxis.conf
+    dest: /etc/slurm/plugstack.conf.d/pyxis.conf
+    owner: root
+    group: root
+    state: link
+
+- name: "Render 30-pyxis-setup.sh to prolog.d files"
+  ansible.builtin.template:
+    src: prolog/30-enroot-setup.sh.j2
+    dest: /etc/slurm/prolog.d/30-enroot-setup.sh
+    owner: root
+    group: root
+    mode: 0754
+
+- name: "Render 30-enroot-cleanup.sh to epilog.d files"
+  ansible.builtin.template:
+    src: epilog/30-enroot-cleanup.sh.j2
+    dest: /etc/slurm/epilog.d/30-enroot-cleanup.sh.sh
+    owner: root
+    group: root
+    mode: 0754
