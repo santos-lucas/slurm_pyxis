@@ -83,10 +83,10 @@ we are using this minor change for dwfault because it will be normally needed by
 for this initial version, those configurations are not changeble thorugh ansible variables, but feel free to change the [template](templates/enroot.conf.j2) if needed.
 
 
-# TODO:
-# - Add limit size for cleaning enroot cache on the epilog  
+##### TODO:
+ - Add limit size for cleaning enroot cache on the epilog  
 
 ## Changelog
-
+* 1.1.1: Add slurm_profile var to match target installation. Lucas Santos <lucassouzasantos@gmail.com>
 * 1.1.0: Add libnvidia-container installation support. Lucas Santos <lucassouzasantos@gmail.com>
 * 1.0.0: Role creation. Lucas Santos <lucassouzasantos@gmail.com>
