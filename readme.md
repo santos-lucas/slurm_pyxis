@@ -34,6 +34,16 @@ Once you have the repositories setted up, you just need to make sure you add the
 
 ## Considerations
 
+### Nvidia GPUs
+
+To enable support for nvidia gpus, just change the inventory to make sure you have the variable "pyxis_enable_libnvidia_container" set to True (it is set to false by default).
+
+```yaml
+pyxis_enable_libnvidia_container: true
+```
+
+Make sure you have the nvidia-container-toolkit repo on your environment. You should be able to get the online repo configuration from [this link](https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo). We strongly recommend you to clone it and have it available locally to ensure all servers will have the same versions, regardless of when you installed it on each server.
+
 ### Enroot configuration
 
 For now, this role uses this enroot [configuration example](https://github.com/NVIDIA/pyxis/wiki/Setup#enroot-configuration-example) with some minor changes change:
@@ -58,4 +68,5 @@ for this initial version, those configurations are not changeble thorugh ansible
 
 ## Changelog
 
+* 1.1.0: Add libnvidia-container installation support. Lucas Santos <lucassouzasantos@gmail.com>
 * 1.0.0: Role creation. Lucas Santos <lucassouzasantos@gmail.com>

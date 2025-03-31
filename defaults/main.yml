@@ -1,3 +1,5 @@
 enroot_runtime_path: "/run/enroot/user-$(id -u)"
 enroot_cache_path: "/var/lib/enroot-cache/user-$(id -u)"
 enroot_data_path: "${HOME}/.local/share/enroot"
+
+pyxis_enable_libnvidia_container: false

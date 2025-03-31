@@ -3,6 +3,11 @@
     name: ["enroot","enroot+caps","nvslurm-plugin-pyxis"]
     state: present
 
+- name: "Install libnvidia-container-tools"
+  ansible.builtin.package:
+    name: "libnvidia-container-tools"
+    state: present
+
 - name: "Render enroot configuration file"
   ansible.builtin.template:
     src: enroot.conf.j2
