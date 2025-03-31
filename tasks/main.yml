@@ -21,13 +21,15 @@
     path: /run/pyxis
     state: directory
     mode: '0755'
+  when: slurm_profile == 'client'
 
 - name: "Create 'plugstack.conf.d' dir if does not exists"
   ansible.builtin.file:
     path: /etc/slurm/plugstack.conf.d/
     state: directory
     mode: '0755'
-  
+  when: slurm_profile == 'client'  
+
 - name: "Enable pyxis slurm plugin"
   ansible.builtin.file:
     src: /usr/share/pyxis/pyxis.conf

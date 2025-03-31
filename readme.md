@@ -15,9 +15,12 @@ This role expects your slurm prolog and epilog to be already configured and to r
 
 You could also use this [prolog_epilog](https://github.com/santos-lucas/bluebanquise-lss-custom/tree/main/roles/prolog_epilog) role also to configure very basic prolog and epilog scripts that will be compatible with this role.
 
+### Slurm profile
+As the configuration will be different on an slurm compute node or in a login/management node, you shoulde use the variable slurm_profile to controle the role behavior, set it for `compute`,`submitter` or `controller`.
+
 ### Add the pyxis_slurm role to your playbook
 
-Once you have the repositories setted up, you just need to make sure you add the pyxis_slurm role on you playbook after the slurm role
+Once you have the repositories setted up, you just need to make sure you add the pyxis_slurm role on you playbook after the slurm role:
 
 ```yaml
 - name: Management playbook 
@@ -31,6 +34,23 @@ Once you have the repositories setted up, you just need to make sure you add the
     - role: pyxis_slurm
       tags: pyxis_slurm
 ```
+
+ For a compute node:
+
+ ```yaml
+- name: Management playbook 
+  hosts: mg_managements
+  vars:
+    slurm_profile: compute
+
+  roles:
+    - role: slurm
+      tags: slurm
+    - role: pyxis_slurm
+      tags: pyxis_slurm
+```
+
+
 
 ## Considerations
 
